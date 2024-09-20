@@ -1,20 +1,98 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import ProprietarioForm from './src/pages/Proprietario/ProprietarioForm';
+import ProprietarioList from './src/pages/Proprietario/ProprietarioList';
+import ProprietarioEdit from './src/pages/Proprietario/ProprietarioEdit';
+import VeiculoList from './src/pages/Veiculo/VeiculoList'
+import VeiculoEdit from './src/pages/Veiculo/VeiculoEdit';
+import VeiculoForm from './src/pages/Veiculo/VeiculoForm'
+import Home from './src/pages/Home'
+import { Icon, Button } from 'react-native-elements';
+const Stack = createStackNavigator();
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <NavigationContainer>
+        <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={screenOptions}>
+          <Stack.Screen
+              name="ProprietarioList"
+              component={ProprietarioList}
+              options={({ navigation }) => {
+                return {
+                  title: "Lista de Proprietários",
+                  headerRight: () => (
+                      <Button
+                          onPress={() => navigation.navigate("ProprietarioForm")}
+                          type="clear"
+                          icon={<Icon name="add" size={25} color="white" />}
+                      />
+                  )
+                }
+              }}
+          />
+          <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{
+                title: 'Menu de Opções'
+              }}
+          />
+          <Stack.Screen
+              name="ProprietarioForm"
+              component={ProprietarioForm}
+              options={{
+                title: 'Formulário de Proprietários'
+              }}
+          />
+          <Stack.Screen
+              name="ProprietarioEdit"
+              component={ProprietarioEdit}
+              options={{
+                title: 'Formulário de Edição'
+              }}
+          />
+          <Stack.Screen
+              name="VeiculoList"
+              component={VeiculoList}
+              options={({ navigation }) => {
+                return {
+                  title: "Lista de Veiculos",
+                  headerRight: () => (
+                      <Button
+                          onPress={() => navigation.navigate("VeiculoForm")}
+                          type="clear"
+                          icon={<Icon name="add" size={25} color="white" />}
+                      />
+                  )
+                }
+              }}
+          />
+          <Stack.Screen
+              name="VeiculoForm"
+              component={VeiculoForm}
+              options={{
+                title: 'Formulário de Veiculos'
+              }}
+          />
+          <Stack.Screen
+              name="VeiculoEdit"
+              component={VeiculoEdit}
+              options={{
+                title: 'Formulário de Edição'
+              }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+};
+const screenOptions = {
+  headerStyle: {
+    backgroundColor: '#f4511e'
   },
-});
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold'
+  }
+}
+export default App;
